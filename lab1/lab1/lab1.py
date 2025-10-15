@@ -2,10 +2,11 @@ RED = '\u001b[41m'
 YELLOW = '\u001b[43;1m'
 GREEN = '\u001b[42m'
 BLACK = '\u001b[16m'
+WHITE_BG = '\033[48;5;15m'
 END = '\u001b[0m'
 ESC = '\x1b'
 CSI = f'{ESC}['
-RESET = f'{CSI}0m'
+RESET = f'{CSI}0m' 
 
 # 1. Флаг
 
@@ -26,7 +27,7 @@ def draw_line(line):
     print(line)
 
 
-def double_rombs(height=11, colour=16):
+def double_rombs(height=11, colour=16, colour1=15):
     center = height // 2
 
     for i in range(height):
@@ -44,9 +45,9 @@ def double_rombs(height=11, colour=16):
         else:
             gap = (i - center) * 2 - 3
 
-        left = f'{" " * offset}{CSI}48;5;{colour}m{" " * length}{RESET}'
-        middle = "" if gap < 0 else " " * max(0, gap)
-        right = f'{CSI}48;5;{colour}m{" " * length}{RESET}'
+        left = f'{CSI}48;5;{colour1}m{" " * offset}{RESET}{CSI}48;5;{colour}m{" " * length}{RESET}'
+        middle = "" if gap < 0 else f'{CSI}48;5;{colour1}m{" " * max(0, gap)}'
+        right = f'{CSI}48;5;{colour}m{" " * length}{RESET}{CSI}48;5;{colour1}m{" " * offset}{RESET}'
         draw_line(left + middle + right)
 
 
